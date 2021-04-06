@@ -1,0 +1,32 @@
+{
+    "name": "infyomlabs/payu-money",
+    "type": "library",
+    "description": "Laravel Payumoney Integration Library",
+    "keywords": [
+        "laravel",
+        "payu-money",
+        "payu",
+        "payment",
+        "payent-gateway"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mitul Golakiya",
+            "email": "me@mitul.me"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "InfyOm\\Payu\\" : "src/"
+        }
+    }   ,
+    "extra": {
+        "laravel" : {
+                "providers": [
+                    "InfyOm\\Payu\\PayuMoneyAppServiceProvider"
+                ]
+        }
+    }
+}
