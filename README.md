@@ -3,13 +3,13 @@
 Installation steps :
 
 ```
-composer require infyomlabs/payu-money:"dev-develop"
+composer require infyomlabs/laravel-payumoney:"v1.0.0"
 ```
 
 Publish the config files and view files :
 
 ```
-php artisan payumoney:publish
+php artisan laravel-payumoney:publish
 ```
 
 Note: Above command will publish following files
