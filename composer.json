@@ -1,5 +1,5 @@
 {
-    "name": "infyomlabs/payu-money",
+    "name": "infyomlabs/laravel-payumoney",
     "type": "library",
     "description": "Laravel Payumoney Integration Library",
     "keywords": [

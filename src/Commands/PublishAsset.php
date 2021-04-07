@@ -12,14 +12,14 @@ class PublishAsset extends \Illuminate\Console\Command
      *
      * @var string
      */
-    protected $name = 'payumoney:publish';
+    protected $name = 'laravel-payumoney:publish';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Publish assets';
+    protected $description = 'Publish Config|Views|Controller';
     
     public function handle()
     {
