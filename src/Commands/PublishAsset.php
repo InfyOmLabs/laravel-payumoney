@@ -2,6 +2,8 @@
 
 namespace InfyOm\Payu\Commands;
 
+use Illuminate\Support\Facades\File;
+
 /**
  * Class PublishAsset
  */
@@ -23,13 +25,22 @@ class PublishAsset extends \Illuminate\Console\Command
     
     public function handle()
     {
-        // publish view
-        
         $this->info('payu.php config file published.');
-        \Artisan::call('vendor:publish --provider="InfyOm\Payu\PayuMoneyAppServiceProvider" --tag="config"');
+        $config = file_get_contents(__DIR__.'./../../config/payu.php');
+        $this->createFile(config_path('/'), 'payu.php', $config);
+
+        \Artisan::call('vendor:publish --provider="InfyOm\Payu\PayuMoneyAppServiceProvider" --tag="views"');
 
         $this->info('view files published.');
-        \Artisan::call('vendor:publish --provider="InfyOm\Payu\PayuMoneyAppServiceProvider" --tag="views"');
+        $views = file_get_contents(__DIR__.'./../../config/payu.php');
+        if (!\File::isDirectory(resource_path('views/payumoney'))) {
+            \File::makeDirectory(resource_path('views/payumoney/'));
+        }
+
+        \File::copyDirectory(
+            base_path('vendor/infyomlabs/laravel-payumoney/views/payumoney'),
+            resource_path('views/payumoney')
+        );
 
         $this->info('PayuMoneyController published.');
         $templateData = file_get_contents(__DIR__.'/../../stubs/PayuMoneyController.stub');
@@ -47,5 +58,4 @@ class PublishAsset extends \Illuminate\Console\Command
 
         file_put_contents($path, $contents);
     }
-
 }
