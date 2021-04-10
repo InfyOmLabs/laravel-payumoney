@@ -10,8 +10,6 @@ Publish the config files and view files :
 
 ```
 php artisan laravel-payumoney:publish
-php vendor:publish --provider="InfyOm\Payu\PayuMoneyAppServiceProvider" --tag="config
-php vendor:publish --provider="InfyOm\Payu\PayuMoneyAppServiceProvider" --tag="views
 ```
 
 Note: Above command will publish following files

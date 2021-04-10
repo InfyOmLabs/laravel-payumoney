@@ -15,11 +15,6 @@ class PayuMoneyAppServiceProvider extends ServiceProvider
             __DIR__.'/../config/payu.php' => config_path('payu.php')
         ], 'config');
 
-        // publish files
-        $this->publishes([
-            __DIR__.'/../views' => resource_path('views/payumoney')], 'views');
-
-        $this->loadViewsFrom(__DIR__.'/../views', 'payumoney');
         $this->loadRoutesFrom(__DIR__.'/routes.php');
     }
     
