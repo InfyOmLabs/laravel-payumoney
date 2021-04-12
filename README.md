@@ -1,5 +1,8 @@
 ## PayuMoney Integration with Laravel
 
+[![Watch the video](http://assets.infyom.com/open-source/laravel-payumoney-sample.gif)](http://assets.infyom.com/open-source/laravel-payumoney-sample.gif)
+
+
 Installation steps :
 
 ```
