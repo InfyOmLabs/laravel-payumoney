@@ -22,7 +22,7 @@ class PublishAsset extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'Publish Config|Views|Controller';
-    
+
     public function handle()
     {
         $this->info('payu.php config file published.');
@@ -45,6 +45,24 @@ class PublishAsset extends \Illuminate\Console\Command
         $this->info('PayuMoneyController published.');
         $templateData = file_get_contents(__DIR__.'/../../stubs/PayuMoneyController.stub');
 
+
+        $this->info('Public assets published.');
+        if (!\File::isDirectory(public_path('payumoney'))) {
+            \File::makeDirectory(public_path('payumoney'));
+        }
+
+        \File::copy(
+            base_path('vendor/infyomlabs/laravel-payumoney/assets/infyom-logo.png'),
+            public_path('payumoney/infyom-logo.png')
+        );
+
+        \File::copy(
+            base_path('vendor/infyomlabs/laravel-payumoney/assets/payu.css'),
+            public_path('payumoney/payu.css')
+        );
+
+
+        $this->info('PayuMoneyController published.');
         $this->createFile(app_path('Http/Controllers/'), 'PayuMoneyController.php', $templateData);
     }
 
