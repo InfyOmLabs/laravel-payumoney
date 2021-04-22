@@ -6,7 +6,7 @@
 Installation steps :
 
 ```
-composer require infyomlabs/laravel-payumoney:"^1.2.0"
+composer require infyomlabs/laravel-payumoney:"^1.3.0"
 ```
 
 Publish the config files and view files :
