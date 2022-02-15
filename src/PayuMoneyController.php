@@ -2,13 +2,13 @@
 
 namespace InfyOm\Payu;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
 /**
  * Class PayuMoneyController
  */
-class PayuMoneyController extends Controller
+class PayuMoneyController extends BaseController
 {
     const TEST_URL = 'https://sandboxsecure.payu.in';
     const PRODUCTION_URL = 'https://secure.payu.in';
