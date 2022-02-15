@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 
 /**
- * Class PublishAsset
+ * Class PublishAsset.
  */
 class PublishAsset extends Command
 {
