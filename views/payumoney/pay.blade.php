@@ -10,7 +10,7 @@
           integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
           crossorigin="anonymous"/>
     <link rel="stylesheet" href="{{asset('payumoney/payu.css')}}">
-    <title>Paymoney</title>
+    <title>{{ config('app.name') }}</title>
 
     <script>
         var hash = '{{$hash}}';
@@ -43,9 +43,9 @@
         @endif
         <form action="{{$action}}" method="post" name="payuForm" class="pb-0">
             @csrf
-            <input type="hidden" name="key" value="{{$MERCHANT_KEY}}"/>
+            <input type="hidden" name="key" value="{{ $merchantKey }}"/>
             <input type="hidden" name="hash" value="{{$hash}}"/>
-            <input type="hidden" name="txnid" value="{{$txnid}}"/>
+            <input type="hidden" name="txnid" value="{{$txnId}}"/>
             <div class="px-5 pt-4 pb-5 form-block">
                 <div class="row">
                     <div class="col-12">

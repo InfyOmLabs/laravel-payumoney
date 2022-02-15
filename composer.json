@@ -26,13 +26,13 @@
     },
     "autoload": {
         "psr-4": {
-            "InfyOm\\Payu\\" : "src/"
+            "InfyOmLabs\\Payu\\" : "src/"
         }
     }   ,
     "extra": {
         "laravel" : {
                 "providers": [
-                    "InfyOm\\Payu\\PayuMoneyAppServiceProvider"
+                    "InfyOmLabs\\Payu\\PayuMoneyAppServiceProvider"
                 ]
         }
     }

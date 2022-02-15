@@ -1,6 +1,6 @@
 <?php
 
-namespace InfyOm\Payu;
+namespace InfyOmLabs\Payu;
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
@@ -12,9 +12,9 @@ class PayuMoneyController extends BaseController
 {
     const TEST_URL = 'https://sandboxsecure.payu.in';
     const PRODUCTION_URL = 'https://secure.payu.in';
-    
+
     /**
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return string
      */
@@ -25,58 +25,57 @@ class PayuMoneyController extends BaseController
         $status = $input["status"];
         $firstname = $input["firstname"];
         $amount = $input["amount"];
-        $txnid = $input["txnid"];
+        $txnId = $input["txnid"];
         $posted_hash = $input["hash"];
         $key = $input["key"];
-        $productinfo = $input["productinfo"];
+        $productInfo = $input["productinfo"];
         $email = $input["email"];
         $salt = config('payu.salt_key');
 
-
         if (isset($input["additionalCharges"])) {
             $additionalCharges = $input["additionalCharges"];
-            $retHashSeq = $additionalCharges.'|'.$salt.'|'.$status.'|||||||||||'.$email.'|'.$firstname.'|'.$productinfo.'|'.$amount.'|'.$txnid.'|'.$key;
+            $retHashSeq = $additionalCharges . '|' . $salt . '|' . $status . '|||||||||||' . $email . '|' . $firstname . '|' . $productInfo . '|' . $amount . '|' . $txnId . '|' . $key;
         } else {
-            $retHashSeq = $salt.'|'.$status.'|||||||||||'.$email.'|'.$firstname.'|'.$productinfo.'|'.$amount.'|'.$txnid.'|'.$key;
+            $retHashSeq = $salt . '|' . $status . '|||||||||||' . $email . '|' . $firstname . '|' . $productInfo . '|' . $amount . '|' . $txnId . '|' . $key;
         }
+
         $hash = hash("sha512", $retHashSeq);
         if ($hash != $posted_hash) {
-            return "Invalid Transaction. Please try again";
+            $errorMessage = 'Invalid Transaction';
+            return view('laravel-payumoney::fail', compact('errorMessage'));
         } else {
-            echo "<h3>Thank You. Your order status is ".$status.".</h3>";
-            echo "<h4>Your Transaction ID for this transaction is ".$txnid.".</h4>";
-            echo "<h4>We have received a payment of Rs. ".$amount.". Your order will soon be shipped.</h4>";
+            return view('laravel-payumoney::success', ['status' => $status, 'txnId' => $txnId, 'amount' => $amount]);
         }
     }
 
     /**
-     * @param  Request  $request
-     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function paymentCancel(Request $request)
     {
         $data = $request->all();
         $validHash = $this->checkHasValidHas($data);
+        $viewData = [
+            'status' => $data['status'],
+            'txnId' => $data['txnid'],
+        ];
 
         if (!$validHash) {
-            echo "Invalid Transaction. Please try again";
-        } else {
-            echo "<h3>Your order status is ". $data["status"].".</h3>";
-            echo "<h4>Your transaction id for this transaction is ".$data["txnid"].". You may try making the payment by clicking the link below.</h4>";
+            $viewData['errorMessage'] = "Invalid Transaction. Please try again";
+            return view('payumoney.cancel', $viewData);
         }
-        
-        $errorMessage = $data['error_Message'];
 
-        return view('payumoney.fail', compact('errorMessage'));
+        $viewData['errorMessage'] = $data['error_Message'];
+        return view('laravel-payumoney::cancel', $viewData);
     }
-    
+
     public function checkHasValidHas($data)
     {
         $status = $data["status"];
         $firstname = $data["firstname"];
         $amount = $data["amount"];
         $txnid = $data["txnid"];
-        $errorMessage = $data["error_Message"];
 
         $posted_hash = $data["hash"];
         $key = $data["key"];
@@ -85,30 +84,29 @@ class PayuMoneyController extends BaseController
         $salt = "";
 
         // Salt should be same Post Request
-
         if (isset($data["additionalCharges"])) {
             $additionalCharges = $data["additionalCharges"];
-            $retHashSeq = $additionalCharges.'|'.$salt.'|'.$status.'|||||||||||'.$email.'|'.$firstname.'|'.$productinfo.'|'.$amount.'|'.$txnid.'|'.$key;
+            $retHashSeq = $additionalCharges . '|' . $salt . '|' . $status . '|||||||||||' . $email . '|' . $firstname . '|' . $productinfo . '|' . $amount . '|' . $txnid . '|' . $key;
         } else {
-            $retHashSeq = $salt.'|'.$status.'|||||||||||'.$email.'|'.$firstname.'|'.$productinfo.'|'.$amount.'|'.$txnid.'|'.$key;
+            $retHashSeq = $salt . '|' . $status . '|||||||||||' . $email . '|' . $firstname . '|' . $productinfo . '|' . $amount . '|' . $txnid . '|' . $key;
         }
 
         $hash = hash("sha512", $retHashSeq);
 
         if ($hash != $posted_hash) {
-            return  false;
+            return false;
         }
-        
+
         return true;
     }
 
     public function redirectToPayU(Request $request)
     {
         $data = $request->all();
-        $MERCHANT_KEY = config('payu.merchant_key');
-        $SALT = config('payu.salt_key');
+        $merchantKey = config('laravel-payumoney.merchant_key');
+        $salt = config('laravel-payumoney.salt_key');
 
-        $PAYU_BASE_URL = config('payu.test_mode') ? self::TEST_URL : self::PRODUCTION_URL;
+        $payuBaseUrl = config('laravel-payumoney.test_mode') ? self::TEST_URL : self::PRODUCTION_URL;
         $action = '';
 
         $posted = array();
@@ -122,9 +120,9 @@ class PayuMoneyController extends BaseController
 
         if (empty($posted['txnid'])) {
             // Generate random transaction id
-            $txnid = substr(hash('sha256', mt_rand().microtime()), 0, 20);
+            $txnId = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
         } else {
-            $txnid = $posted['txnid'];
+            $txnId = $posted['txnid'];
         }
         $hash = '';
 // Hash Sequence
@@ -152,20 +150,20 @@ class PayuMoneyController extends BaseController
                     $hash_string .= '|';
                 }
 
-                $hash_string .= $SALT;
-
+                $hash_string .= $salt;
 
                 $hash = strtolower(hash('sha512', $hash_string));
-                $action = $PAYU_BASE_URL.'/_payment';
+                $action = $payuBaseUrl . '/_payment';
 
             }
         } elseif (!empty($posted['hash'])) {
             $hash = $posted['hash'];
-            $action = $PAYU_BASE_URL.'/_payment';
-
+            $action = $payuBaseUrl . '/_payment';
         }
 
-        return view('payumoney.pay',
-            compact('hash', 'action', 'MERCHANT_KEY', 'formError', 'txnid', 'posted', 'SALT'));
+        return view(
+            'laravel-payumoney::pay',
+            compact('hash', 'action', 'merchantKey', 'formError', 'txnId', 'posted', 'salt')
+        );
     }
 }
