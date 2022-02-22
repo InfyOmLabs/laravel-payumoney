@@ -1,6 +1,6 @@
 <h1 align="center"><img src="https://assets.infyom.com/open-source/infyom-logo.png" alt="InfyOm"></h1>
 
-PayuMoney Integration with Laravel
+PayUMoney Integration with Laravel
 ==========================
 
 [![Total Downloads](https://poser.pugx.org/infyomlabs/laravel-payumoney/downloads)](https://packagist.org/packages/infyomlabs/laravel-payumoney)
