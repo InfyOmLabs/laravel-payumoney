@@ -8,49 +8,55 @@ PayuMoney Integration with Laravel
 [![Daily Downloads](https://poser.pugx.org/infyomlabs/laravel-payumoney/d/daily)](https://packagist.org/packages/infyomlabs/laravel-payumoney)
 [![License](https://poser.pugx.org/infyomlabs/laravel-payumoney/license)](https://packagist.org/packages/infyomlabs/laravel-payumoney)
 
-Easy to use integration for [PayUMoney](https://www.payu.in/) into Laravel apps.
+## Documentation
 
-## Video Tutorial
+Read [Documentation](https://infyom.com/open-source/laravel-payumoney/docs) for detailed installation steps and usage.
 
-[![Watch the video](http://assets.infyom.com/open-source/laravel-payumoney-sample.gif)](http://assets.infyom.com/open-source/laravel-payumoney-sample.gif)
+## Support Us
 
+We have created [14+ Laravel packages](https://github.com/InfyOmLabs) and invested a lot of resources into creating these all packages and maintaining them.
 
-## Usage
+You can support us by either sponsoring us or buying one of our paid products. Or help us by spreading the word about us on social platforms via tweets and posts.
 
-```
-composer require infyomlabs/laravel-payumoney:"^1.3.0"
-```
+### Buy our Paid Products
 
-Publish the config files and view files
+[![InfyVCards-SaaS](https://assets.infyom.com/open-source/new/infyvcards-saas-banner.png)](https://1.envato.market/15gvva)
 
-```
-php artisan laravel-payumoney:publish
-```
+You can also check out our other paid products on [CodeCanyon](https://1.envato.market/BXAnR1).
 
-Above command will publish the following files:
+### Sponsors
 
-- resources/views/payumoney/pay.blade.php
-- resources/views/payumoney/fail.blade.php
-- config/payu.php
-- App\Http\Controllers\PayuMoneyController.php
+[Become a sponsor](https://opencollective.com/infyomlabs#sponsor) and get your logo on our README on Github with a link to your site.
 
+<a href="https://opencollective.com/infyomlabs#sponsor"><img src="https://opencollective.com/infyomlabs/sponsors.svg?width=890"></a>
 
-Add the following two routes to `VerifyCsrfToken.php` into `except` as its callback routes.
+### Backers
 
-```
-payu-money-payment-cancel
-payu-money-payment-success
-```
+[Become a backer](https://opencollective.com/infyomlabs#backer) and get your image on our README on Github with a link to your site.
 
-You need to change the `PAYU_TEST_MODE=false` when you are done with testing and want to use it in production.
+<a href="https://opencollective.com/infyomlabs#backer"><img src="https://opencollective.com/infyomlabs/backers.svg?width=890"></a>
 
-Route to open payumoney form :
+### Follow Us
 
-```
-{APP_URL}/payu-money-payment
-```
+- [Twitter](https://twitter.com/infyom)
+- [Facebook](https://www.facebook.com/infyom)
+- [LinkedIn](https://in.linkedin.com/company/infyom-technologies)
+- [Youtube](https://www.youtube.com/channel/UC8IvwfChD6i7Wp4yZp3tNsQ)
+- [Contact Us](https://infyom.com/contact-us)
 
+## Made with InfyOm Generator
 
+Also, Do not forget to add your website to [Made with InfyOm Generator List](https://github.com/InfyOmLabs/laravel-generator/blob/develop/made-with-generator.md) list.
 
+## Security
 
+If you discover any security-related issues, create an issue using the issue tracker.
 
+## Credits
+
+- [InfyOm Technologies](https://github.com/infyomlabs)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
